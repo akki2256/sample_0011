@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate | Our Organisation</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <a href="index.html" class="logo">Our Organisation</a>
+            <button class="nav-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="events.html">Events & Plans</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="donate.html" class="active">Donate</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero donate-hero">
+            <div class="container">
+                <h1>Support Our Cause</h1>
+                <p>Your donation helps us create lasting impact. Every contribution, big or small, makes a difference.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="donate-layout">
+                    <div class="donate-info">
+                        <h2>Where Your Donation Goes</h2>
+                        <ul class="impact-list">
+                            <li><strong>Education:</strong> Scholarships, learning centres, and digital literacy</li>
+                            <li><strong>Healthcare:</strong> Mobile clinics, health drives, and awareness campaigns</li>
+                            <li><strong>Environment:</strong> Cleanup initiatives, sustainability projects</li>
+                            <li><strong>Community:</strong> Skill development, livelihood support</li>
+                        </ul>
+                        <div class="donation-note">
+                            <p>All donations are tax-deductible under Section 80G of the Income Tax Act. You will receive a receipt for your records.</p>
+                        </div>
+                    </div>
+                    <div class="donate-form-wrapper">
+                        <form id="donate-form" class="donate-form">
+                            <h3>Make a Donation</h3>
+                            <div class="form-group">
+                                <label for="donor-name">Full Name *</label>
+                                <input type="text" id="donor-name" name="donorName" required placeholder="Your name">
+                            </div>
+                            <div class="form-group">
+                                <label for="donor-email">Email *</label>
+                                <input type="email" id="donor-email" name="donorEmail" required placeholder="you@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="donor-phone">Phone</label>
+                                <input type="tel" id="donor-phone" name="donorPhone" placeholder="+91 98765 43210">
+                            </div>
+                            <div class="form-group">
+                                <label>Amount (₹) *</label>
+                                <div class="amount-options">
+                                    <button type="button" class="amount-btn" data-amount="500">₹500</button>
+                                    <button type="button" class="amount-btn" data-amount="1000">₹1,000</button>
+                                    <button type="button" class="amount-btn" data-amount="2500">₹2,500</button>
+                                    <button type="button" class="amount-btn" data-amount="5000">₹5,000</button>
+                                    <button type="button" class="amount-btn" data-amount="10000">₹10,000</button>
+                                </div>
+                                <div class="custom-amount">
+                                    <input type="number" id="custom-amount" name="amount" min="100" step="100" placeholder="Or enter custom amount (min ₹100)" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="donor-message">Message (optional)</label>
+                                <textarea id="donor-message" name="message" rows="3" placeholder="Add a note with your donation"></textarea>
+                            </div>
+                            <button type="submit" id="donate-btn" class="btn btn-primary btn-full" disabled>
+                                Proceed to Pay
+                            </button>
+                            <div id="donate-status" class="form-status" aria-live="polite"></div>
+                            <p class="payment-note">Secure payment powered by Razorpay. We never store your card details.</p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">Our Organisation</a>
+                    <p>Creating impact through community and collaboration.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="donate.html">Donate</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Get in Touch</h4>
+                    <p>contact@ourorganisation.org</p>
+                    <p>+91 98765 43210</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Our Organisation. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Razorpay Checkout Script -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/donate.js"></script>
+</body>
+</html>
