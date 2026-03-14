@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search | Utsaah Foundation</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <h1>Search</h1>
+                <p>Find pages and content across the Utsaah Foundation website.</p>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container">
+                <form class="search-page-form" role="search" action="search.html" method="get">
+                    <input type="search" name="q" id="search-page-input" class="search-input" placeholder="Enter keywords (e.g. cancer, donate, contact)..." value="" aria-label="Search">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+                <div id="search-results" class="search-results"></div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="js/include.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+      (function () {
+        var params = new URLSearchParams(window.location.search);
+        var q = params.get('q') || '';
+        var input = document.getElementById('search-page-input');
+        var resultsEl = document.getElementById('search-results');
+        if (input) input.value = q;
+
+        function render() {
+          if (!resultsEl) return;
+          var results = typeof searchSite === 'function' ? searchSite(q) : [];
+          if (!q.trim()) {
+            resultsEl.innerHTML = '<p class="search-message">Enter a search term above to find relevant pages.</p>';
+            return;
+          }
+          if (results.length === 0) {
+            resultsEl.innerHTML = '<p class="search-message">No results found for &ldquo;' + q.replace(/</g, '&lt;') + '&rdquo;. Try different keywords.</p>';
+            return;
+          }
+          var html = '<h2 class="section-title">Results</h2><ul class="search-results-list">';
+          results.forEach(function (r) {
+            html += '<li><a href="' + r.url + '">' + r.title + '</a></li>';
+          });
+          html += '</ul>';
+          resultsEl.innerHTML = html;
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', render);
+        } else {
+          render();
+        }
+      })();
+    </script>
+</body>
+</html>
