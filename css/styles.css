@@ -426,6 +426,70 @@ body.search-open .search-bar {
   background: linear-gradient(120deg, rgba(255, 249, 230, 0.9), rgba(244, 180, 26, 0.35));
 }
 
+.hero-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--color-text);
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition), color var(--transition), opacity var(--transition);
+  opacity: 0.85;
+}
+
+.hero-nav:hover {
+  background: var(--color-primary);
+  color: white;
+  opacity: 1;
+}
+
+.hero-prev {
+  left: 1rem;
+}
+
+.hero-next {
+  right: 1rem;
+}
+
+.hero-dots {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.hero-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.hero-dot:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.hero-dot.active {
+  background: rgba(255, 255, 255, 0.95);
+  transform: scale(1.15);
+}
+
 .hero-content {
   position: relative;
   z-index: 2;
@@ -604,6 +668,155 @@ body.search-open .search-bar {
   color: var(--color-primary);
 }
 
+/* ===== Carousel (Gallery, Team, YouTube) – 5 visible, center enlarged ===== */
+.carousel-wrap {
+  position: relative;
+  padding: 0 3.5rem;
+}
+
+.carousel-viewport {
+  overflow: hidden;
+  margin: 0 -0.25rem;
+  /* Room for scaled center item so it doesn’t get cropped */
+  padding: 1.5rem 1rem;
+}
+
+/* Single row: override .media-row / .video-grid grid so track stays flex, one row */
+.carousel-wrap .carousel-track,
+.carousel-wrap .media-row.carousel-track,
+.carousel-wrap .video-grid.carousel-track {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 1.25rem;
+  transition: transform 0.4s ease-out;
+  will-change: transform;
+}
+
+/* Exactly 5 items visible; each takes equal space */
+.carousel-wrap .media-row.carousel-track .media-card,
+.carousel-wrap .video-grid.carousel-track .video-card {
+  flex: 0 0 calc((100% - 4 * 1.25rem) / 5);
+  min-width: 0;
+  transition: transform 0.35s ease-out, box-shadow 0.35s ease-out;
+}
+
+/* Center (3rd of 5 visible) – enlarged, highlighted, and bordered */
+.carousel-wrap .media-row.carousel-track .media-card.carousel-item-center,
+.carousel-wrap .video-grid.carousel-track .video-card.carousel-item-center {
+  transform: scale(1.12);
+  z-index: 1;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-lg);
+  overflow: visible;
+}
+
+/* Prevent image/video inside center card from being cropped */
+.carousel-wrap .media-card.carousel-item-center .media-thumb,
+.carousel-wrap .video-card.carousel-item-center .video-thumb {
+  overflow: visible;
+}
+
+@media (max-width: 900px) {
+  .carousel-wrap {
+    padding: 0 3rem;
+  }
+
+  .carousel-wrap .media-row.carousel-track .media-card,
+  .carousel-wrap .video-grid.carousel-track .video-card {
+    flex: 0 0 calc((100% - 4 * 1rem) / 5);
+  }
+
+  .carousel-wrap .media-row.carousel-track .media-card.carousel-item-center,
+  .carousel-wrap .video-grid.carousel-track .video-card.carousel-item-center {
+    transform: scale(1.08);
+  }
+}
+
+@media (max-width: 600px) {
+  .carousel-wrap {
+    padding: 0 2.5rem;
+  }
+
+  .carousel-wrap .media-row.carousel-track .media-card,
+  .carousel-wrap .video-grid.carousel-track .video-card {
+    flex: 0 0 calc((100% - 4 * 0.75rem) / 5);
+  }
+
+  .carousel-wrap .media-row.carousel-track .media-card.carousel-item-center,
+  .carousel-wrap .video-grid.carousel-track .video-card.carousel-item-center {
+    transform: scale(1.05);
+  }
+}
+
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: 1.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  transition: background var(--transition), color var(--transition), transform var(--transition);
+}
+
+.carousel-nav:hover {
+  background: var(--color-primary);
+  color: white;
+  transform: translateY(-50%) scale(1.05);
+}
+
+.carousel-nav:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: translateY(-50%);
+}
+
+.carousel-prev {
+  left: 0;
+}
+
+.carousel-next {
+  right: 0;
+}
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: var(--color-border);
+  cursor: pointer;
+  padding: 0;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.carousel-dot:hover {
+  background: var(--color-primary);
+  opacity: 0.8;
+}
+
+.carousel-dot.active {
+  background: var(--color-primary);
+  transform: scale(1.2);
+}
+
 /* ===== Media Rows (Gallery & Team) ===== */
 .media-row {
   display: grid;
@@ -668,13 +881,15 @@ body.search-open .search-bar {
   padding-bottom: 56.25%;
   border-radius: var(--radius);
   background: linear-gradient(135deg, #fca5a5, #f97316);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   margin-bottom: 0.75rem;
 }
 
+/* Center play icon in the full aspect-ratio box (not just the content area) */
 .video-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 52px;
   height: 52px;
   border-radius: 999px;
@@ -684,6 +899,17 @@ body.search-open .search-bar {
   justify-content: center;
   color: #f9fafb;
   font-size: 1.4rem;
+}
+
+/* Iframe fills the whole thumb so video shows in full area and can play */
+.video-thumb iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: var(--radius);
 }
 
 .video-card h3 {

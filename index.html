@@ -15,14 +15,17 @@
     <main>
         <section class="hero">
             <div class="hero-media">
-                <div class="hero-slide hero-slide-active" style="background-image: url('images/hero-1.jpg');"></div>
-                <div class="hero-slide" style="background-image: url('images/hero-2.jpg');"></div>
-                <div class="hero-slide" style="background-image: url('images/hero-3.jpg');"></div>
+                <div class="hero-slide hero-slide-active" style="background-image: url('images/banner/hero-1.jpg');"></div>
+                <div class="hero-slide" style="background-image: url('images/banner/hero-2.jpg');"></div>
+                <div class="hero-slide" style="background-image: url('images/banner/hero-3.jpg');"></div>
                 <div class="hero-overlay"></div>
+                <button type="button" class="hero-nav hero-prev" aria-label="Previous slide">&#10094;</button>
+                <button type="button" class="hero-nav hero-next" aria-label="Next slide">&#10095;</button>
+                <!--<div class="hero-dots" aria-label="Slide indicators"></div>-->
             </div>
             <div class="hero-content container">
                 <h1>Creating Impact, <span class="highlight">Together</span></h1>
-                <p class="hero-subtitle">We support cancer patients and their families with financial assistance, guidance, and emotional care?so no one faces the journey alone.</p>
+                <p class="hero-subtitle">We support cancer patients and their families with financial assistance, guidance, and emotional care,so no one faces the journey alone.</p>
                 <div class="hero-cta">
                     <a href="donate.html" class="btn btn-primary">Support Our Cause</a>
                     <a href="what-we-do.html" class="btn btn-secondary">Explore Programmes</a>
@@ -114,23 +117,46 @@
                     <h2>Photo Gallery</h2>
                     <p>Glimpses from our field visits, events, and community programmes.</p>
                 </div>
-                <div class="media-row">
-                    <div class="media-card">
-                        <div class="media-thumb media-thumb-photo"></div>
-                        <h3>Health Camp</h3>
+                <div class="carousel-wrap" data-carousel="gallery">
+                    <button type="button" class="carousel-nav carousel-prev" aria-label="Previous">&#10094;</button>
+                    <button type="button" class="carousel-nav carousel-next" aria-label="Next">&#10095;</button>
+                    <div class="carousel-viewport">
+                        <div class="carousel-track media-row">
+                            <div class="media-card">
+                                <div class="media-thumb media-thumb-photo" style="background-image: url('images/gallery/photo-1.jpg');"></div>
+                                <h3>Health Camp</h3>
+                            </div>
+                            <div class="media-card">
+                                <div class="media-thumb media-thumb-photo" style="background-image: url('images/gallery/photo-2.jpg');"></div>
+                                <h3>Awareness Session</h3>
+                            </div>
+                            <div class="media-card">
+                                <div class="media-thumb media-thumb-photo" style="background-image: url('images/gallery/photo-3.jpg');"></div>
+                                <h3>Youth Workshop</h3>
+                            </div>
+                            <div class="media-card">
+                                <div class="media-thumb media-thumb-photo" style="background-image: url('images/gallery/photo-4.jpg');"></div>
+                                <h3>Community Meet</h3>
+                            </div>
+                            <div class="media-card">
+                                <div class="media-thumb media-thumb-photo" style="background-image: url('images/gallery/photo-5.jpg');"></div>
+                                <h3>Patient Support</h3>
+                            </div>
+                            <div class="media-card">
+                                <div class="media-thumb media-thumb-photo" style="background-image: url('images/gallery/photo-6.jpg');"></div>
+                                <h3>Volunteer Day</h3>
+                            </div>
+                            <div class="media-card">
+                                <div class="media-thumb media-thumb-photo" style="background-image: url('images/gallery/photo-7.jpg');"></div>
+                                <h3>Outreach Event</h3>
+                            </div>
+                            <div class="media-card">
+                                <div class="media-thumb media-thumb-photo" style="background-image: url('images/gallery/photo-8.jpg');"></div>
+                                <h3>Impact Stories</h3>
+                            </div>
+                        </div>
                     </div>
-                    <div class="media-card">
-                        <div class="media-thumb media-thumb-photo"></div>
-                        <h3>Awareness Session</h3>
-                    </div>
-                    <div class="media-card">
-                        <div class="media-thumb media-thumb-photo"></div>
-                        <h3>Youth Workshop</h3>
-                    </div>
-                    <div class="media-card">
-                        <div class="media-thumb media-thumb-photo"></div>
-                        <h3>Community Meet</h3>
-                    </div>
+                    <!--<div class="carousel-dots" aria-label="Gallery slide indicators"></div>-->
                 </div>
                 <div class="section-cta">
                     <a href="gallery.html" class="btn btn-outline">View More Photos</a>
@@ -144,23 +170,46 @@
                     <h2>Our Team</h2>
                     <p>The people behind Utsaah Foundation who make everything possible.</p>
                 </div>
-                <div class="media-row">
-                    <div class="media-card">
-                        <div class="media-thumb media-thumb-team"></div>
-                        <h3>Founder</h3>
+                <div class="carousel-wrap" data-carousel="team">
+                    <button type="button" class="carousel-nav carousel-prev" aria-label="Previous">&#10094;</button>
+                    <button type="button" class="carousel-nav carousel-next" aria-label="Next">&#10095;</button>
+                    <div class="carousel-viewport">
+                        <div class="carousel-track media-row">
+                            <div class="media-card">
+                                <div class="media-thumb media-thumb-team" style="background-image: url('images/team/member-1.jpg');"></div>
+                                <h3>Founder</h3>
+                            </div>
+                            <div class="media-card">
+                                <div class="media-thumb media-thumb-team" style="background-image: url('images/team/member-2.jpg');"></div>
+                                <h3>Programme Lead</h3>
+                            </div>
+                            <div class="media-card">
+                                <div class="media-thumb media-thumb-team" style="background-image: url('images/team/member-3.jpg');"></div>
+                                <h3>Field Coordinator</h3>
+                            </div>
+                            <div class="media-card">
+                                <div class="media-thumb media-thumb-team" style="background-image: url('images/team/member-4.jpg');"></div>
+                                <h3>Volunteer Lead</h3>
+                            </div>
+                            <div class="media-card">
+                                <div class="media-thumb media-thumb-team" style="background-image: url('images/team/member-5.jpg');"></div>
+                                <h3>Operations</h3>
+                            </div>
+                            <div class="media-card">
+                                <div class="media-thumb media-thumb-team" style="background-image: url('images/team/member-6.jpg');"></div>
+                                <h3>Outreach</h3>
+                            </div>
+                            <div class="media-card">
+                                <div class="media-thumb media-thumb-team" style="background-image: url('images/team/member-7.jpg');"></div>
+                                <h3>Finance</h3>
+                            </div>
+                            <div class="media-card">
+                                <div class="media-thumb media-thumb-team" style="background-image: url('images/team/member-8.jpg');"></div>
+                                <h3>Communications</h3>
+                            </div>
+                        </div>
                     </div>
-                    <div class="media-card">
-                        <div class="media-thumb media-thumb-team"></div>
-                        <h3>Programme Lead</h3>
-                    </div>
-                    <div class="media-card">
-                        <div class="media-thumb media-thumb-team"></div>
-                        <h3>Field Coordinator</h3>
-                    </div>
-                    <div class="media-card">
-                        <div class="media-thumb media-thumb-team"></div>
-                        <h3>Volunteer Lead</h3>
-                    </div>
+                    <!--<div class="carousel-dots" aria-label="Team slide indicators"></div>-->
                 </div>
                 <div class="section-cta">
                     <a href="team.html" class="btn btn-outline">Meet the Full Team</a>
@@ -174,61 +223,68 @@
                     <h2>Stories from Our YouTube Channel</h2>
                     <p>Short films, testimonials, and highlights from Utsaah Foundation's journey.</p>
                 </div>
-                <div class="video-grid">
-                    <div class="video-card" data-video-id="dQw4w9WgXcQ">
-                        <div class="video-thumb">
-                            <div class="video-play">&#9654;</div>
+                <div class="carousel-wrap" data-carousel="youtube">
+                    <button type="button" class="carousel-nav carousel-prev" aria-label="Previous">&#10094;</button>
+                    <button type="button" class="carousel-nav carousel-next" aria-label="Next">&#10095;</button>
+                    <div class="carousel-viewport">
+                        <div class="carousel-track video-grid">
+                            <div class="video-card" data-video-id="dQw4w9WgXcQ">
+                                <div class="video-thumb">
+                                    <div class="video-play">&#9654;</div>
+                                </div>
+                                <h3>Community Health Drive</h3>
+                            </div>
+                            <div class="video-card" data-video-id="kXYiU_JCYtU">
+                                <div class="video-thumb">
+                                    <div class="video-play">&#9654;</div>
+                                </div>
+                                <h3>Youth Mentorship</h3>
+                            </div>
+                            <div class="video-card" data-video-id="3JZ_D3ELwOQ">
+                                <div class="video-thumb">
+                                    <div class="video-play">&#9654;</div>
+                                </div>
+                                <h3>Environmental Action</h3>
+                            </div>
+                            <div class="video-card" data-video-id="Zi_XLOBDo_Y">
+                                <div class="video-thumb">
+                                    <div class="video-play">&#9654;</div>
+                                </div>
+                                <h3>Volunteer Stories</h3>
+                            </div>
+                            <div class="video-card" data-video-id="hY7m5jjJ9mM">
+                                <div class="video-thumb">
+                                    <div class="video-play">&#9654;</div>
+                                </div>
+                                <h3>Impact Snapshot</h3>
+                            </div>
+                            <div class="video-card" data-video-id="2Vv-BfVoq4g">
+                                <div class="video-thumb">
+                                    <div class="video-play">&#9654;</div>
+                                </div>
+                                <h3>Partner Voices</h3>
+                            </div>
+                            <div class="video-card" data-video-id="OPf0YbXqDm0">
+                                <div class="video-thumb">
+                                    <div class="video-play">&#9654;</div>
+                                </div>
+                                <h3>On the Ground</h3>
+                            </div>
+                            <div class="video-card" data-video-id="JGwWNGJdvx8">
+                                <div class="video-thumb">
+                                    <div class="video-play">&#9654;</div>
+                                </div>
+                                <h3>Campaign Highlights</h3>
+                            </div>
+                            <div class="video-card" data-video-id="e-ORhEE9VVg">
+                                <div class="video-thumb">
+                                    <div class="video-play">&#9654;</div>
+                                </div>
+                                <h3>Field Reflections</h3>
+                            </div>
                         </div>
-                        <h3>Community Health Drive</h3>
                     </div>
-                    <div class="video-card" data-video-id="kXYiU_JCYtU">
-                        <div class="video-thumb">
-                            <div class="video-play">&#9654;</div>
-                        </div>
-                        <h3>Youth Mentorship</h3>
-                    </div>
-                    <div class="video-card" data-video-id="3JZ_D3ELwOQ">
-                        <div class="video-thumb">
-                            <div class="video-play">&#9654;</div>
-                        </div>
-                        <h3>Environmental Action</h3>
-                    </div>
-                    <div class="video-card" data-video-id="Zi_XLOBDo_Y">
-                        <div class="video-thumb">
-                            <div class="video-play">&#9654;</div>
-                        </div>
-                        <h3>Volunteer Stories</h3>
-                    </div>
-                    <div class="video-card" data-video-id="hY7m5jjJ9mM">
-                        <div class="video-thumb">
-                            <div class="video-play">&#9654;</div>
-                        </div>
-                        <h3>Impact Snapshot</h3>
-                    </div>
-                    <div class="video-card" data-video-id="2Vv-BfVoq4g">
-                        <div class="video-thumb">
-                            <div class="video-play">&#9654;</div>
-                        </div>
-                        <h3>Partner Voices</h3>
-                    </div>
-                    <div class="video-card" data-video-id="OPf0YbXqDm0">
-                        <div class="video-thumb">
-                            <div class="video-play">&#9654;</div>
-                        </div>
-                        <h3>On the Ground</h3>
-                    </div>
-                    <div class="video-card" data-video-id="JGwWNGJdvx8">
-                        <div class="video-thumb">
-                            <div class="video-play">&#9654;</div>
-                        </div>
-                        <h3>Campaign Highlights</h3>
-                    </div>
-                    <div class="video-card" data-video-id="e-ORhEE9VVg">
-                        <div class="video-thumb">
-                            <div class="video-play">&#9654;</div>
-                        </div>
-                        <h3>Field Reflections</h3>
-                    </div>
+                    <!--<div class="carousel-dots" aria-label="YouTube slide indicators"></div>-->
                 </div>
             </div>
         </section>
