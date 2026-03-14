@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Organisation | Making a Difference</title>
+    <title>Utsaah Foundation | Creating Impact Together</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,40 +12,83 @@
 <body>
     <header class="header">
         <nav class="nav container">
-            <a href="index.html" class="logo">Our Organisation</a>
+            <a href="index.html" class="logo">Utsaah Foundation</a>
+
             <button class="nav-toggle" aria-label="Toggle menu">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="events.html">Events & Plans</a></li>
-                <li><a href="careers.html">Careers</a></li>
-                <li><a href="donate.html">Donate</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
+
+            <div class="nav-center">
+                <ul class="nav-links">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link active">Who we are</a>
+                    </li>
+                    <li class="nav-item nav-item-has-submenu">
+                        <button class="nav-link nav-link-button" type="button">
+                            What we do
+                            <span class="nav-caret">?</span>
+                        </button>
+                        <ul class="nav-submenu">
+                            <li><a href="events.html" class="nav-submenu-link">Our Programmes</a></li>
+                            <li><a href="gallery.html" class="nav-submenu-link">Gallery</a></li>
+                            <li><a href="team.html" class="nav-submenu-link">Our Team</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="events.html" class="nav-link">Who do we work with</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="careers.html" class="nav-link">Careers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contact.html" class="nav-link">Contact</a>
+                    </li>
+                    <li class="nav-item nav-item-donate">
+                        <a href="donate.html" class="nav-link nav-donate btn btn-primary">Donate</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-right">
+                <button class="search-toggle" type="button" aria-expanded="false">
+                    <span class="search-icon">??</span>
+                    <span class="search-label">Search</span>
+                </button>
+            </div>
         </nav>
+        <div class="search-bar" id="site-search-bar">
+            <div class="container search-bar-inner">
+                <input type="text" id="site-search-input" class="search-input" placeholder="Search across Utsaah Foundation..." />
+                <button type="button" id="site-search-button" class="btn btn-secondary search-submit">Search</button>
+            </div>
+        </div>
     </header>
 
     <main>
         <section class="hero">
+            <div class="hero-media">
+                <div class="hero-slide hero-slide-active" style="background-image: url('images/hero-1.jpg');"></div>
+                <div class="hero-slide" style="background-image: url('images/hero-2.jpg');"></div>
+                <div class="hero-slide" style="background-image: url('images/hero-3.jpg');"></div>
+                <div class="hero-overlay"></div>
+            </div>
             <div class="hero-content container">
                 <h1>Creating Impact, <span class="highlight">Together</span></h1>
                 <p class="hero-subtitle">We're dedicated to building a better future through community-driven initiatives, meaningful events, and sustainable change.</p>
                 <div class="hero-cta">
                     <a href="donate.html" class="btn btn-primary">Support Our Cause</a>
-                    <a href="events.html" class="btn btn-secondary">Explore Events</a>
+                    <a href="events.html" class="btn btn-secondary">Explore Programmes</a>
                 </div>
             </div>
-            <div class="hero-pattern"></div>
         </section>
 
         <section class="about section">
             <div class="container">
                 <div class="section-header">
                     <h2>Who We Are</h2>
-                    <p>Our organisation has been at the forefront of positive change, bringing together communities and creating lasting impact.</p>
+                    <p>Utsaah Foundation is at the forefront of positive change, bringing together communities and creating lasting impact.</p>
                 </div>
                 <div class="about-grid">
                     <div class="about-card">
@@ -74,20 +117,172 @@
                 </div>
                 <div class="highlights-grid">
                     <a href="events.html" class="highlight-card">
-                        <h3>Events & Plans</h3>
-                        <p>Discover our upcoming events and long-term initiatives</p>
+                        <h3>What We Do</h3>
+                        <p>Discover our programmes, initiatives, and impact stories</p>
                         <span class="link-arrow">&#8594;</span>
                     </a>
                     <a href="careers.html" class="highlight-card">
                         <h3>Join Our Team</h3>
-                        <p>Explore career opportunities and make a difference</p>
+                        <p>Explore opportunities to build a career with purpose</p>
                         <span class="link-arrow">&#8594;</span>
                     </a>
                     <a href="donate.html" class="highlight-card">
                         <h3>Donate</h3>
-                        <p>Your contribution helps us create lasting impact</p>
+                        <p>Your contribution helps us support more communities</p>
                         <span class="link-arrow">&#8594;</span>
                     </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section stats-section" id="impact-stats">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Our Growing Impact</h2>
+                    <p>Every number represents a story of resilience, hope, and collective effort.</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-label">Meetings Conducted</span>
+                        <span class="stat-number" data-target="325">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Patients Supported</span>
+                        <span class="stat-number" data-target="1840">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Doctors Involved</span>
+                        <span class="stat-number" data-target="96">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Social Media Reach</span>
+                        <span class="stat-number" data-target="120000">0</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section gallery-preview">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Photo Gallery</h2>
+                    <p>Glimpses from our field visits, events, and community programmes.</p>
+                </div>
+                <div class="media-row">
+                    <div class="media-card">
+                        <div class="media-thumb media-thumb-photo"></div>
+                        <h3>Health Camp</h3>
+                    </div>
+                    <div class="media-card">
+                        <div class="media-thumb media-thumb-photo"></div>
+                        <h3>Awareness Session</h3>
+                    </div>
+                    <div class="media-card">
+                        <div class="media-thumb media-thumb-photo"></div>
+                        <h3>Youth Workshop</h3>
+                    </div>
+                    <div class="media-card">
+                        <div class="media-thumb media-thumb-photo"></div>
+                        <h3>Community Meet</h3>
+                    </div>
+                </div>
+                <div class="section-cta">
+                    <a href="gallery.html" class="btn btn-outline">View More Photos</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section team-preview section-alt">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Our Team</h2>
+                    <p>The people behind Utsaah Foundation who make everything possible.</p>
+                </div>
+                <div class="media-row">
+                    <div class="media-card">
+                        <div class="media-thumb media-thumb-team"></div>
+                        <h3>Founder</h3>
+                    </div>
+                    <div class="media-card">
+                        <div class="media-thumb media-thumb-team"></div>
+                        <h3>Programme Lead</h3>
+                    </div>
+                    <div class="media-card">
+                        <div class="media-thumb media-thumb-team"></div>
+                        <h3>Field Coordinator</h3>
+                    </div>
+                    <div class="media-card">
+                        <div class="media-thumb media-thumb-team"></div>
+                        <h3>Volunteer Lead</h3>
+                    </div>
+                </div>
+                <div class="section-cta">
+                    <a href="team.html" class="btn btn-outline">Meet the Full Team</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section video-grid-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Stories from Our YouTube Channel</h2>
+                    <p>Short films, testimonials, and highlights from Utsaah Foundation's journey.</p>
+                </div>
+                <div class="video-grid">
+                    <div class="video-card" data-video-id="dQw4w9WgXcQ">
+                        <div class="video-thumb">
+                            <div class="video-play">?</div>
+                        </div>
+                        <h3>Community Health Drive</h3>
+                    </div>
+                    <div class="video-card" data-video-id="kXYiU_JCYtU">
+                        <div class="video-thumb">
+                            <div class="video-play">?</div>
+                        </div>
+                        <h3>Youth Mentorship</h3>
+                    </div>
+                    <div class="video-card" data-video-id="3JZ_D3ELwOQ">
+                        <div class="video-thumb">
+                            <div class="video-play">?</div>
+                        </div>
+                        <h3>Environmental Action</h3>
+                    </div>
+                    <div class="video-card" data-video-id="Zi_XLOBDo_Y">
+                        <div class="video-thumb">
+                            <div class="video-play">?</div>
+                        </div>
+                        <h3>Volunteer Stories</h3>
+                    </div>
+                    <div class="video-card" data-video-id="hY7m5jjJ9mM">
+                        <div class="video-thumb">
+                            <div class="video-play">?</div>
+                        </div>
+                        <h3>Impact Snapshot</h3>
+                    </div>
+                    <div class="video-card" data-video-id="2Vv-BfVoq4g">
+                        <div class="video-thumb">
+                            <div class="video-play">?</div>
+                        </div>
+                        <h3>Partner Voices</h3>
+                    </div>
+                    <div class="video-card" data-video-id="OPf0YbXqDm0">
+                        <div class="video-thumb">
+                            <div class="video-play">?</div>
+                        </div>
+                        <h3>On the Ground</h3>
+                    </div>
+                    <div class="video-card" data-video-id="JGwWNGJdvx8">
+                        <div class="video-thumb">
+                            <div class="video-play">?</div>
+                        </div>
+                        <h3>Campaign Highlights</h3>
+                    </div>
+                    <div class="video-card" data-video-id="e-ORhEE9VVg">
+                        <div class="video-thumb">
+                            <div class="video-play">?</div>
+                        </div>
+                        <h3>Field Reflections</h3>
+                    </div>
                 </div>
             </div>
         </section>
@@ -97,26 +292,41 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <a href="index.html" class="logo">Our Organisation</a>
-                    <p>Creating impact through community and collaboration.</p>
+                    <a href="index.html" class="logo">Utsaah Foundation</a>
+                    <p>Creating impact through community, care, and collaboration.</p>
+                </div>
+                <div class="footer-newsletter">
+                    <h4>Subscribe to our newsletter</h4>
+                    <p>Get stories, updates, and opportunities from Utsaah Foundation.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address" aria-label="Email address">
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
                 </div>
                 <div class="footer-links">
                     <h4>Quick Links</h4>
                     <ul>
-                        <li><a href="events.html">Events</a></li>
+                        <li><a href="index.html">Who we are</a></li>
+                        <li><a href="events.html">What we do</a></li>
                         <li><a href="careers.html">Careers</a></li>
-                        <li><a href="donate.html">Donate</a></li>
                         <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-contact">
-                    <h4>Get in Touch</h4>
-                    <p>contact@ourorganisation.org</p>
+                    <h4>Connect with us</h4>
+                    <p>contact@utsaahfoundation.org</p>
                     <p>+91 98765 43210</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook" class="social-icon">f</a>
+                        <a href="#" aria-label="Instagram" class="social-icon">ig</a>
+                        <a href="#" aria-label="LinkedIn" class="social-icon">in</a>
+                        <a href="#" aria-label="YouTube" class="social-icon">yt</a>
+                        <a href="#" aria-label="Twitter" class="social-icon">x</a>
+                    </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Our Organisation. All rights reserved.</p>
+                <p>&copy; 2025 Utsaah Foundation. All rights reserved.</p>
             </div>
         </div>
     </footer>

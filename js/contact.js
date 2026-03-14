@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
       statusEl.className = 'form-status success';
       form.reset();
     } catch (err) {
-      statusEl.textContent = 'Something went wrong. Please try again or email us directly at contact@ourorganisation.org';
+      statusEl.textContent = 'Something went wrong. Please try again or email us directly at contact@utsaahfoundation.org';
       statusEl.className = 'form-status error';
     } finally {
       submitBtn.disabled = false;

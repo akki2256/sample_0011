@@ -115,8 +115,8 @@
         key: RAZORPAY_KEY_ID,
         amount: amountInPaise,
         currency: 'INR',
-        name: 'Our Organisation',
-        description: 'Donation to Our Organisation',
+        name: 'Utsaah Foundation',
+        description: 'Donation to Utsaah Foundation',
         order_id: orderId,
         prefill: {
           name: donorName,
