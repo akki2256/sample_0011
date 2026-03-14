@@ -2,13 +2,31 @@
  * Main JavaScript - Navigation and shared functionality
  */
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', runInits);
+document.addEventListener('headerFooterLoaded', runInits);
+
+function runInits() {
+  initNavActiveState();
   initMobileNav();
+  initSubmenu();
   initSearchBar();
   initHeroSlider();
   initStatsCounter();
   initVideoPlaceholders();
-});
+}
+
+function initNavActiveState() {
+  var path = window.location.pathname;
+  var current = path.split('/').pop() || 'index.html';
+  document.querySelectorAll('.nav-link[href]').forEach(function (link) {
+    var href = link.getAttribute('href');
+    if (href === current || (current === '' && href === 'index.html')) {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
+  });
+}
 
 function initMobileNav() {
   const toggle = document.querySelector('.nav-toggle');
@@ -34,24 +52,47 @@ function initMobileNav() {
   });
 }
 
+function initSubmenu() {
+  var btn = document.querySelector('.nav-link-button');
+  var submenuParent = document.querySelector('.nav-item-has-submenu');
+  if (!btn || !submenuParent) return;
+
+  btn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    submenuParent.classList.toggle('submenu-open');
+    btn.setAttribute('aria-expanded', submenuParent.classList.contains('submenu-open'));
+  });
+
+  document.addEventListener('click', function (e) {
+    if (!submenuParent.contains(e.target)) {
+      submenuParent.classList.remove('submenu-open');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      submenuParent.classList.remove('submenu-open');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+  });
+}
+
 function initSearchBar() {
   const toggle = document.querySelector('.search-toggle');
   const searchBar = document.getElementById('site-search-bar');
   const input = document.getElementById('site-search-input');
-  const icon = toggle ? toggle.querySelector('.search-icon') : null;
 
   if (!toggle || !searchBar || !input) return;
 
   function closeSearch() {
     document.body.classList.remove('search-open');
     toggle.setAttribute('aria-expanded', 'false');
-    if (icon) icon.textContent = '🔍';
   }
 
   function openSearch() {
     document.body.classList.add('search-open');
     toggle.setAttribute('aria-expanded', 'true');
-    if (icon) icon.textContent = '✕';
     setTimeout(function () {
       input.focus();
     }, 150);
@@ -59,8 +100,7 @@ function initSearchBar() {
 
   toggle.addEventListener('click', function (e) {
     e.stopPropagation();
-    const isOpen = document.body.classList.contains('search-open');
-    if (isOpen) {
+    if (document.body.classList.contains('search-open')) {
       closeSearch();
     } else {
       openSearch();
@@ -69,13 +109,7 @@ function initSearchBar() {
 
   document.addEventListener('click', function (e) {
     if (!document.body.classList.contains('search-open')) return;
-    if (
-      e.target.closest('.search-bar') ||
-      e.target.closest('.search-toggle') ||
-      e.target.closest('.nav')
-    ) {
-      return;
-    }
+    if (e.target.closest('.search-bar') || e.target.closest('.search-toggle') || e.target.closest('.nav')) return;
     closeSearch();
   });
 }

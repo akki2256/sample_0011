@@ -124,6 +124,75 @@ img {
   display: none;
 }
 
+/* Submenu: hidden by default, show on click */
+.nav-item-has-submenu {
+  position: relative;
+}
+
+.nav-link-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.nav-caret {
+  font-size: 0.65em;
+  opacity: 0.8;
+  transition: transform 0.2s ease;
+}
+
+.nav-item-has-submenu.submenu-open .nav-caret {
+  transform: rotate(180deg);
+}
+
+.nav-submenu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 0.5rem;
+  min-width: 180px;
+  list-style: none;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 0.5rem 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  z-index: 200;
+}
+
+.nav-item-has-submenu.submenu-open .nav-submenu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.nav-submenu li {
+  margin: 0;
+}
+
+.nav-submenu-link {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: var(--color-text);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.nav-submenu-link:hover {
+  background: var(--color-bg-alt);
+  color: var(--color-primary);
+}
+
 .nav-right {
   display: flex;
   align-items: center;
@@ -142,8 +211,31 @@ img {
   font-size: 0.9rem;
 }
 
-.search-toggle .search-icon {
-  font-size: 1rem;
+.search-icon-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-icon-wrap svg {
+  width: 20px;
+  height: 20px;
+}
+
+.search-icon-close {
+  display: none !important;
+}
+
+body.search-open .search-icon-magnify {
+  display: none !important;
+}
+
+body.search-open .search-icon-close {
+  display: block !important;
+}
+
+.nav-caret svg {
+  display: block;
 }
 
 .search-toggle:hover {
@@ -166,6 +258,19 @@ img {
   padding: 0.75rem 0 1rem;
 }
 
+.search-bar-inner form {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.search-bar-inner form .search-input {
+  flex: 1;
+  min-width: 0;
+}
+
 .search-input {
   flex: 1;
   padding: 0.7rem 1rem;
@@ -176,6 +281,38 @@ img {
 
 .search-submit {
   white-space: nowrap;
+}
+
+.search-page-form {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  max-width: 600px;
+}
+
+.search-page-form .search-input {
+  flex: 1;
+}
+
+.search-results-list {
+  list-style: none;
+}
+
+.search-results-list li {
+  margin-bottom: 0.75rem;
+}
+
+.search-results-list a {
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.search-results-list a:hover {
+  text-decoration: underline;
+}
+
+.search-message {
+  color: var(--color-text-muted);
 }
 
 body.search-open .search-bar {
@@ -953,22 +1090,28 @@ body.search-open .search-bar {
 }
 
 .social-icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 999px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.7rem;
   color: var(--color-text-muted);
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
 }
 
 .social-icon:hover {
   background: var(--color-primary);
   color: #fff;
   border-color: var(--color-primary);
+}
+
+.social-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
 }
 
 .footer-bottom {
@@ -1019,6 +1162,27 @@ body.search-open .search-bar {
     transform: translateY(0);
     opacity: 1;
     visibility: visible;
+  }
+
+  .nav-submenu {
+    position: static;
+    transform: none;
+    margin-top: 0;
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
+    box-shadow: none;
+    border: none;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: var(--radius);
+    max-height: 0;
+    overflow: hidden;
+    padding: 0;
+    transition: max-height 0.2s ease;
+  }
+
+  .nav-item-has-submenu.submenu-open .nav-submenu {
+    max-height: 200px;
+    padding: 0.5rem 0;
   }
 
   .form-row {

@@ -1,0 +1,67 @@
+<header class="header">
+    <nav class="nav container">
+        <a href="index.html" class="logo">Utsaah Foundation</a>
+
+        <button class="nav-toggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <div class="nav-center">
+            <ul class="nav-links">
+                <li class="nav-item">
+                    <a href="who-we-are.html" class="nav-link">Who we are</a>
+                </li>
+                <li class="nav-item nav-item-has-submenu">
+                    <button class="nav-link nav-link-button" type="button" aria-expanded="false" aria-haspopup="true">
+                        What we do
+                        <span class="nav-caret" aria-hidden="true">
+                            <svg width="10" height="6" viewBox="0 0 10 6" fill="currentColor"><path d="M0 0l5 6 5-6z"/></svg>
+                        </span>
+                    </button>
+                    <ul class="nav-submenu" role="menu">
+                        <li role="none"><a href="what-we-do.html" class="nav-submenu-link" role="menuitem">Overview</a></li>
+                        <li role="none"><a href="events.html" class="nav-submenu-link" role="menuitem">Our Programmes</a></li>
+                        <li role="none"><a href="gallery.html" class="nav-submenu-link" role="menuitem">Gallery</a></li>
+                        <li role="none"><a href="team.html" class="nav-submenu-link" role="menuitem">Our Team</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="who-we-work-with.html" class="nav-link">Who do we work with</a>
+                </li>
+                <li class="nav-item">
+                    <a href="careers.html" class="nav-link">Careers</a>
+                </li>
+                <li class="nav-item">
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </li>
+                <li class="nav-item nav-item-donate">
+                    <a href="donate.html" class="nav-link nav-donate btn btn-primary">Donate</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="nav-right">
+            <button class="search-toggle" type="button" aria-expanded="false" aria-label="Toggle search">
+                <span class="search-icon-wrap">
+                    <svg class="search-icon-magnify" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                    </svg>
+                    <svg class="search-icon-close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="display:none">
+                        <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                </span>
+                <span class="search-label">Search</span>
+            </button>
+        </div>
+    </nav>
+    <div class="search-bar" id="site-search-bar">
+        <div class="container search-bar-inner">
+            <form id="site-search-form" role="search" action="search.html" method="get">
+                <input type="search" id="site-search-input" name="q" class="search-input" placeholder="Search across Utsaah Foundation..." aria-label="Search website" />
+                <button type="submit" id="site-search-button" class="btn btn-secondary search-submit">Search</button>
+            </form>
+        </div>
+    </div>
+</header>
