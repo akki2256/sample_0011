@@ -1,7 +1,11 @@
 /**
  * Contact Form Handler
- * For production: connect to a backend API or form service (Formspree, Netlify Forms, etc.)
+ * Submits to FormSubmit.co (free, unlimited submissions) → emails to airteldth1702@gmail.com
+ * First time: FormSubmit sends a confirmation email to that address; click the link once to activate.
  */
+
+var CONTACT_EMAIL = 'airteldth1702@gmail.com';
+var FORMSUBMIT_AJAX_URL = 'https://formsubmit.co/ajax/' + CONTACT_EMAIL;
 
 document.addEventListener('DOMContentLoaded', function () {
   const form = document.getElementById('contact-form');
@@ -57,31 +61,41 @@ document.addEventListener('DOMContentLoaded', function () {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
+    // FormSubmit special fields: email subject line, Reply-To, and table template
+    var subjectLabel = form.querySelector('#subject option:checked') ? form.querySelector('#subject option:checked').textContent : data.subject || 'Contact';
+    var payload = {
+      name: data.name,
+      email: data.email,
+      phone: data.phone || '',
+      subject: data.subject,
+      message: data.message,
+      _subject: 'Utsaah Foundation – ' + subjectLabel,
+      _replyto: data.email || '',
+      _template: 'table'
+    };
+
     try {
-      // Option 1: Use Formspree (free tier) - replace YOUR_FORM_ID with your Formspree form ID
-      // const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
-      //   method: 'POST',
-      //   body: JSON.stringify(data),
-      //   headers: { 'Content-Type': 'application/json' }
-      // });
-
-      // Option 2: Use your own backend API
-      // const response = await fetch('/api/contact', {
-      //   method: 'POST',
-      //   body: JSON.stringify(data),
-      //   headers: { 'Content-Type': 'application/json' }
-      // });
-
-      // For static demo: simulate success (replace with actual API call above)
-      await new Promise(function (resolve) {
-        setTimeout(resolve, 800);
+      const response = await fetch(FORMSUBMIT_AJAX_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
       });
 
-      statusEl.textContent = 'Thank you! Your message has been sent. We will get back to you soon.';
-      statusEl.className = 'form-status success';
-      form.reset();
+      const result = response.ok ? await response.json().catch(function () { return {}; }) : null;
+
+      if (response.ok && (result.success !== false)) {
+        statusEl.textContent = result.message + 'Thank you! Your message has been sent. We will get back to you soon.';
+        statusEl.className = 'form-status success';
+        form.reset();
+      } else {
+        statusEl.textContent = 'Something went wrong. Please try again or email us directly at ' + CONTACT_EMAIL + '.';
+        statusEl.className = 'form-status error';
+      }
     } catch (err) {
-      statusEl.textContent = 'Something went wrong. Please try again or email us directly at contact@utsaahfoundation.org';
+      statusEl.textContent = 'Something went wrong. Please try again or email us directly at ' + CONTACT_EMAIL + '.';
       statusEl.className = 'form-status error';
     } finally {
       submitBtn.disabled = false;
