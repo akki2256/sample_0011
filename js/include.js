@@ -5,17 +5,19 @@
   if (!headerEl && !footerEl) return;
 
   function inject() {
+    var base = document.querySelector('base');
+    var basePath = (base && base.getAttribute('href')) || '';
     var promises = [];
     if (headerEl) {
       promises.push(
-        fetch('header.html').then(function (r) { return r.text(); }).then(function (html) {
+        fetch(basePath + 'header.html').then(function (r) { return r.text(); }).then(function (html) {
           headerEl.innerHTML = html;
         })
       );
     }
     if (footerEl) {
       promises.push(
-        fetch('footer.html').then(function (r) { return r.text(); }).then(function (html) {
+        fetch(basePath + 'footer.html').then(function (r) { return r.text(); }).then(function (html) {
           footerEl.innerHTML = html;
         })
       );
