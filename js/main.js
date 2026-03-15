@@ -227,14 +227,24 @@ function initCarousels() {
       return items[0] ? items[0].offsetWidth : 0;
     }
 
+    function getVisibleCount() {
+      var w = viewport && viewport.offsetWidth ? viewport.offsetWidth : window.innerWidth;
+      if (w <= 400) return 1;
+      if (w <= 600) return 2;
+      return 5;
+    }
+
     function setTranslate(px, useTransition) {
       track.style.transition = useTransition !== false ? transitionStyle : 'none';
       track.style.transform = 'translate3d(' + px + 'px, 0, 0)';
     }
 
     function applyCenterAndDots() {
+      var visible = getVisibleCount();
+      var centerOffset = visible >= 5 ? 2 : 0;
+      var centerIndex = currentIndex + centerOffset;
       [].forEach.call(items, function (el, i) {
-        el.classList.toggle('carousel-item-center', i === currentIndex + 2);
+        el.classList.toggle('carousel-item-center', i === centerIndex);
       });
       if (prevBtn) prevBtn.disabled = false;
       if (nextBtn) nextBtn.disabled = false;
@@ -331,6 +341,7 @@ function initCarousels() {
 
     window.addEventListener('resize', function () {
       goToIndex(currentIndex);
+      applyCenterAndDots();
     });
 
     goToIndex(0);
