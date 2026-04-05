@@ -321,6 +321,12 @@ body.search-open .search-bar {
   opacity: 1;
 }
 
+/* Above mobile .nav-links overlay (z-index 99) so the strip stays clickable */
+.header .search-bar {
+  position: relative;
+  z-index: 110;
+}
+
 .nav-toggle {
   display: none;
   flex-direction: column;
@@ -679,7 +685,7 @@ body.search-open .search-bar {
   color: var(--color-primary);
 }
 
-/* ===== Carousel (Gallery, Team, YouTube) – 5 visible, center enlarged ===== */
+/* ===== Carousel (Gallery, Team, YouTube) – desktop: 5 visible (3 for YouTube), center enlarged ===== */
 .carousel-wrap {
   position: relative;
   padding: 0 3.5rem;
@@ -703,7 +709,7 @@ body.search-open .search-bar {
   will-change: transform;
 }
 
-/* Exactly 5 items visible; each takes equal space */
+/* Exactly 5 items visible (gallery/team); each takes equal space */
 .carousel-wrap .media-row.carousel-track .media-card,
 .carousel-wrap .video-grid.carousel-track .video-card {
   flex: 0 0 calc((100% - 4 * 1.25rem) / 5);
@@ -711,7 +717,12 @@ body.search-open .search-bar {
   transition: transform 0.35s ease-out, box-shadow 0.35s ease-out;
 }
 
-/* Center (3rd of 5 visible) – enlarged, highlighted, and bordered */
+/* YouTube carousel: 3 visible on laptop/desktop (>600px per JS) */
+.carousel-wrap[data-carousel="youtube"] .video-grid.carousel-track .video-card {
+  flex: 0 0 calc((100% - 2 * 1.25rem) / 3);
+}
+
+/* Center card – enlarged, highlighted, and bordered */
 .carousel-wrap .media-row.carousel-track .media-card.carousel-item-center,
 .carousel-wrap .video-grid.carousel-track .video-card.carousel-item-center {
   transform: scale(1.12);
@@ -738,6 +749,10 @@ body.search-open .search-bar {
     flex: 0 0 calc((100% - 4 * 1rem) / 5);
   }
 
+  .carousel-wrap[data-carousel="youtube"] .video-grid.carousel-track .video-card {
+    flex: 0 0 calc((100% - 2 * 1rem) / 3);
+  }
+
   .carousel-wrap .media-row.carousel-track .media-card.carousel-item-center,
   .carousel-wrap .video-grid.carousel-track .video-card.carousel-item-center {
     transform: scale(1.08);
@@ -754,6 +769,11 @@ body.search-open .search-bar {
     flex: 0 0 calc((100% - 1.25rem) / 2);
   }
 
+  /* Match gallery/team: same specificity as youtube desktop rule */
+  .carousel-wrap[data-carousel="youtube"] .video-grid.carousel-track .video-card {
+    flex: 0 0 calc((100% - 1.25rem) / 2);
+  }
+
   .carousel-wrap .media-row.carousel-track .media-card.carousel-item-center,
   .carousel-wrap .video-grid.carousel-track .video-card.carousel-item-center {
     transform: scale(1.05);
@@ -767,6 +787,10 @@ body.search-open .search-bar {
 
   .carousel-wrap .media-row.carousel-track .media-card,
   .carousel-wrap .video-grid.carousel-track .video-card {
+    flex: 0 0 100%;
+  }
+
+  .carousel-wrap[data-carousel="youtube"] .video-grid.carousel-track .video-card {
     flex: 0 0 100%;
   }
 
@@ -1412,12 +1436,15 @@ body.search-open .search-bar {
     -webkit-overflow-scrolling: touch;
     background: var(--color-bg-alt);
     flex-direction: column;
+    align-items: stretch;
+    text-align: left;
     padding: 2rem;
     gap: 0.25rem;
     border-bottom: 1px solid var(--color-border);
     transform: translateY(-100%);
     opacity: 0;
     visibility: hidden;
+    pointer-events: none;
     transition: all var(--transition);
     z-index: 99;
   }
@@ -1426,12 +1453,49 @@ body.search-open .search-bar {
     transform: translateY(0);
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
   }
 
   .nav-links .nav-item {
     min-height: 44px;
     display: flex;
     align-items: center;
+  }
+
+  .nav-links .nav-item.nav-item-has-submenu {
+    flex-direction: column;
+    align-items: stretch;
+    min-height: unset;
+  }
+
+  .nav-links .nav-item.nav-item-has-submenu > .nav-link-button {
+    min-height: 44px;
+  }
+
+  .nav-links .nav-link-button {
+    width: 100%;
+    justify-content: space-between;
+    text-align: left;
+    padding-inline: 0;
+  }
+
+  .nav-links .nav-caret {
+    flex-shrink: 0;
+  }
+
+  .nav-links .nav-item > a.nav-link:not(.nav-link-button):not(.nav-donate) {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .nav-links .nav-item-donate {
+    justify-content: center;
+  }
+
+  .nav-links .nav-item-donate .nav-donate {
+    align-self: center;
   }
 
   .nav-links .nav-submenu-link {
@@ -1446,7 +1510,9 @@ body.search-open .search-bar {
     position: static;
     transform: none;
     margin-top: 0;
-    margin-left: 1rem;
+    margin-left: 0;
+    align-self: stretch;
+    width: 100%;
     margin-bottom: 0.5rem;
     box-shadow: none;
     border: none;
@@ -1480,6 +1546,10 @@ body.search-open .search-bar {
   .footer-grid {
     grid-template-columns: 1fr;
     text-align: center;
+  }
+
+  .footer-social {
+    justify-content: center;
   }
 }
 

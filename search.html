@@ -39,6 +39,16 @@
       (function () {
         var params = new URLSearchParams(window.location.search);
         var q = params.get('q') || '';
+        if (!q.trim()) {
+          try {
+            q = sessionStorage.getItem('uts_pending_search_q') || '';
+            if (q) sessionStorage.removeItem('uts_pending_search_q');
+          } catch (e) {}
+        } else {
+          try {
+            sessionStorage.removeItem('uts_pending_search_q');
+          } catch (e) {}
+        }
         var input = document.getElementById('search-page-input');
         var resultsEl = document.getElementById('search-results');
         if (input) input.value = q;
