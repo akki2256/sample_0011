@@ -34,23 +34,115 @@ function initMobileNav() {
   const navLinks = document.querySelector('.nav-links');
 
   if (!toggle || !navLinks) return;
+  if (navLinks._utsMobileNavBound) return;
+  navLinks._utsMobileNavBound = true;
+
+  const mqMobile = window.matchMedia('(max-width: 768px)');
+
+  function clearMobileNavSelection() {
+    navLinks.querySelectorAll('.nav-mobile-selected, .nav-mobile-line-exit').forEach(function (el) {
+      if (el._utsNavLineExitEnd) {
+        el.removeEventListener('animationend', el._utsNavLineExitEnd);
+        el._utsNavLineExitEnd = null;
+      }
+      el.classList.remove('nav-mobile-selected', 'nav-mobile-line-exit');
+    });
+  }
+
+  function runMobileNavLineExit(el) {
+    if (!el.classList.contains('nav-mobile-selected')) return;
+    if (el.classList.contains('nav-mobile-line-exit')) return;
+    if (el._utsNavLineExitEnd) {
+      el.removeEventListener('animationend', el._utsNavLineExitEnd);
+      el._utsNavLineExitEnd = null;
+    }
+    el.classList.add('nav-mobile-line-exit');
+    function onExitAnimEnd(ev) {
+      if (ev.animationName !== 'nav-mobile-line-exit') return;
+      el.removeEventListener('animationend', onExitAnimEnd);
+      el._utsNavLineExitEnd = null;
+      el.classList.remove('nav-mobile-selected', 'nav-mobile-line-exit');
+    }
+    el._utsNavLineExitEnd = onExitAnimEnd;
+    el.addEventListener('animationend', onExitAnimEnd);
+  }
+
+  function closeMobileMenu() {
+    navLinks.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+    clearMobileNavSelection();
+  }
 
   toggle.addEventListener('click', function () {
-    navLinks.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', navLinks.classList.contains('open'));
+    if (navLinks.classList.contains('open')) {
+      closeMobileMenu();
+    } else {
+      navLinks.classList.add('open');
+      toggle.setAttribute('aria-expanded', 'true');
+    }
   });
+
+  /* Capture: submenu buttons use stopPropagation — bubble never reaches .nav-links */
+  navLinks.addEventListener(
+    'click',
+    function (e) {
+      if (!mqMobile.matches) return;
+      var t = e.target;
+      var el = null;
+      if (t.closest('.nav-submenu')) {
+        el = t.closest('a.nav-submenu-link');
+      } else {
+        el = t.closest('button.nav-link-button') || t.closest('a.nav-link');
+      }
+      if (!el || !navLinks.contains(el)) return;
+      /* Second tap closes submenu — animate line out (desktop-style scaleX), don't clear first */
+      if (el.matches('button.nav-link-button')) {
+        var subParent = el.closest('.nav-item-has-submenu');
+        if (subParent && subParent.classList.contains('submenu-open')) {
+          runMobileNavLineExit(el);
+          return;
+        }
+      }
+      clearMobileNavSelection();
+      el.classList.add('nav-mobile-selected');
+      var href = el.getAttribute('href');
+      if (href && href.charAt(0) === '#') {
+        requestAnimationFrame(function () {
+          clearMobileNavSelection();
+        });
+      }
+    },
+    true
+  );
 
   navLinks.querySelectorAll('a').forEach(function (link) {
     link.addEventListener('click', function () {
-      navLinks.classList.remove('open');
+      closeMobileMenu();
     });
   });
 
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') {
-      navLinks.classList.remove('open');
+    if (e.key === 'Escape' && navLinks.classList.contains('open')) {
+      closeMobileMenu();
     }
   });
+
+  document.addEventListener('click', function (e) {
+    if (!mqMobile.matches) return;
+    if (!navLinks.classList.contains('open')) return;
+    var t = e.target;
+    if (t.closest && (t.closest('.nav-links') || t.closest('.nav-toggle'))) return;
+    closeMobileMenu();
+  });
+
+  function onMobileMqChange() {
+    if (!mqMobile.matches) clearMobileNavSelection();
+  }
+  if (mqMobile.addEventListener) {
+    mqMobile.addEventListener('change', onMobileMqChange);
+  } else if (mqMobile.addListener) {
+    mqMobile.addListener(onMobileMqChange);
+  }
 }
 
 function initSubmenu() {
