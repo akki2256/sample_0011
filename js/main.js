@@ -10,6 +10,7 @@ function runInits() {
   initMobileNav();
   initSubmenu();
   initSearchBar();
+  initSearchPageForm();
   initHeroSlider();
   initStatsCounter();
   initCarousels();
@@ -101,6 +102,7 @@ function initSearchBar() {
   const input = document.getElementById('site-search-input');
 
   if (!toggle || !searchBar || !input) return;
+  if (toggle._utsSearchBarBound) return;
 
   function closeSearch() {
     document.body.classList.remove('search-open');
@@ -124,10 +126,45 @@ function initSearchBar() {
     }
   });
 
+  var siteForm = document.getElementById('site-search-form');
+  if (siteForm) {
+    siteForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var raw = input.value ? String(input.value).trim() : '';
+      if (raw) {
+        try {
+          sessionStorage.setItem('uts_pending_search_q', raw);
+        } catch (err) {}
+      }
+      window.location.href = siteForm.getAttribute('action') || 'search.html';
+    });
+  }
+
   document.addEventListener('click', function (e) {
     if (!document.body.classList.contains('search-open')) return;
-    if (e.target.closest('.search-bar') || e.target.closest('.search-toggle') || e.target.closest('.nav')) return;
+    var t = e.target;
+    if (t.closest('.search-bar') || t.closest('.search-toggle') || t.closest('.nav')) return;
     closeSearch();
+  });
+
+  toggle._utsSearchBarBound = true;
+}
+
+/** Survives servers that 301 search.html?q=… → /search without the query (e.g. some static hosts). */
+function initSearchPageForm() {
+  var form = document.querySelector('form.search-page-form');
+  if (!form || form._utsSearchPageBound) return;
+  form._utsSearchPageBound = true;
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var qInput = form.querySelector('input[name="q"]');
+    var raw = qInput && qInput.value ? String(qInput.value).trim() : '';
+    if (raw) {
+      try {
+        sessionStorage.setItem('uts_pending_search_q', raw);
+      } catch (err) {}
+    }
+    window.location.href = form.getAttribute('action') || 'search.html';
   });
 }
 
@@ -219,6 +256,7 @@ function initCarousels() {
     const total = originalCount; /* logical count for dots and index */
     const gap = 20; /* px, match CSS 1.25rem */
     const transitionStyle = 'transform 0.4s ease-out';
+    const carouselKind = wrap.getAttribute('data-carousel') || '';
 
     let currentIndex = 0;
     let isWrappingNext = false;
@@ -231,7 +269,7 @@ function initCarousels() {
       var w = viewport && viewport.offsetWidth ? viewport.offsetWidth : window.innerWidth;
       if (w <= 400) return 1;
       if (w <= 600) return 2;
-      return 5;
+      return carouselKind === 'youtube' ? 3 : 5;
     }
 
     function setTranslate(px, useTransition) {
@@ -241,7 +279,7 @@ function initCarousels() {
 
     function applyCenterAndDots() {
       var visible = getVisibleCount();
-      var centerOffset = visible >= 5 ? 2 : 0;
+      var centerOffset = Math.floor((visible - 1) / 2);
       var centerIndex = currentIndex + centerOffset;
       [].forEach.call(items, function (el, i) {
         el.classList.toggle('carousel-item-center', i === centerIndex);
@@ -257,8 +295,7 @@ function initCarousels() {
       }
     }
 
-    /* Sliding window of 5: visible are currentIndex..currentIndex+4 (with wrap via duplicate).
-       Center (3rd visible) = currentIndex + 2. */
+    /* Visible count from getVisibleCount(); center index = currentIndex + floor((visible-1)/2). */
     function goToIndex(index) {
       currentIndex = (index + total) % total;
       if (currentIndex < 0) currentIndex += total;
