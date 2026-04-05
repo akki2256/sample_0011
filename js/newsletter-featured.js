@@ -30,8 +30,6 @@
     if (excerptEl) excerptEl.textContent = latest.excerpt;
     if (link) {
       link.href = latest.article;
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
     }
   }
 

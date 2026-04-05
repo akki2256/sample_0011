@@ -59,8 +59,6 @@
         var a = document.createElement('a');
         a.href = item.article;
         a.className = 'newsletter-archive-readmore';
-        a.target = '_blank';
-        a.rel = 'noopener noreferrer';
         a.textContent = 'Read more >>>';
         actions.appendChild(a);
 

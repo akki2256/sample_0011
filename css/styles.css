@@ -1848,6 +1848,13 @@ body.search-open .search-bar {
   margin: 0 auto;
 }
 
+.newsletter-archive-pager .newsletter-pager-btn {
+  box-sizing: border-box;
+  min-width: 9.5rem;
+  justify-content: center;
+  text-align: center;
+}
+
 .newsletter-pager-status {
   font-size: 0.95rem;
   color: var(--color-text-muted);
@@ -1920,6 +1927,36 @@ body.search-open .search-bar {
   .newsletter-featured-body {
     align-items: center;
     text-align: center;
+  }
+
+  .newsletter-readmore {
+    align-self: center;
+  }
+
+  .newsletter-archive-pager {
+    display: grid;
+    grid-template-columns: 1fr minmax(0, 1.35fr) 1fr;
+    align-items: center;
+    gap: 0.5rem 0.5rem;
+    width: 100%;
+    max-width: 100%;
+    padding-inline: 0.25rem;
+    box-sizing: border-box;
+  }
+
+  .newsletter-archive-pager .newsletter-pager-btn {
+    min-width: 0;
+    width: 100%;
+    max-width: none;
+    padding: 0.5rem 0.35rem;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    justify-self: stretch;
+  }
+
+  .newsletter-pager-status {
+    min-width: 0;
+    font-size: 0.85rem;
   }
 
   .newsletter-archive-row {
