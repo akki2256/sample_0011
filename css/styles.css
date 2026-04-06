@@ -378,11 +378,16 @@ body.search-open .search-bar {
  * minmax(0,1fr) side columns squeezing the brand under the nav.
  */
 @media (min-width: 769px) {
+  .header .container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
   .nav {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
-    column-gap: var(--nav-header-gap);
+    column-gap: 1.25rem;
     row-gap: 0;
     justify-content: initial;
   }
@@ -403,6 +408,12 @@ body.search-open .search-bar {
 
   .nav-links {
     flex-wrap: nowrap;
+    gap: 1.1rem;
+  }
+
+  .nav-link,
+  .nav-link-button {
+    white-space: nowrap;
   }
 
   .nav-right {
@@ -654,11 +665,48 @@ body.search-open .search-bar {
   margin: 0 auto;
 }
 
+/* Long-form intro: left-aligned copy in a readable column (fixes list bullets vs centered text) */
+.section-header--prose {
+  text-align: left;
+}
+
+.section-header--prose > h2 {
+  text-align: center;
+}
+
+.section-header--prose > p,
+.section-header--prose > ul,
+.section-header--prose > .section-subheading {
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
+.section-header--prose > ul {
+  list-style-position: outside;
+  padding-left: 1.35rem;
+}
+
 /* ===== About ===== */
 .about-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
+}
+
+/* Mission full-width row; Vision + Values share one balanced row on desktop */
+.about-grid:has(.about-card-mission) {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 56rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 640px) {
+  .about-grid:has(.about-card-mission) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .about-card {
@@ -687,6 +735,47 @@ body.search-open .search-bar {
 .about-card p {
   color: var(--color-text-muted);
   font-size: 0.95rem;
+}
+
+.section-header .section-subheading {
+  font-size: 1.1rem;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.about-inline-list {
+  margin: 0.5rem auto 1.25rem;
+  padding-left: 1.35rem;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  text-align: left;
+  list-style-position: outside;
+  max-width: 42rem;
+}
+
+.about-inline-list li {
+  margin-bottom: 0.35rem;
+}
+
+.about-card-list {
+  margin: 0;
+  padding-left: 1.15rem;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.about-card-list li {
+  margin-bottom: 0.65rem;
+}
+
+.about-card-list li:last-child {
+  margin-bottom: 0;
+}
+
+.about-card-mission {
+  grid-column: 1 / -1;
+  width: 100%;
 }
 
 /* ===== Highlights ===== */
@@ -728,8 +817,8 @@ body.search-open .search-bar {
 /* ===== Stats ===== */
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr));
+  gap: 1rem;
 }
 
 .stat-card {
@@ -751,6 +840,42 @@ body.search-open .search-bar {
   font-family: var(--font-display);
   font-size: 2rem;
   color: var(--color-primary);
+}
+
+.stat-sublabel {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin-top: 0.2rem;
+  text-transform: lowercase;
+}
+
+@media (min-width: 720px) {
+  .stats-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+/* Six impact cards in one row (fits ~1024px+ with 1200px container) */
+@media (min-width: 1024px) {
+  .stats-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .stats-section .stat-card {
+    padding: 1.35rem 0.6rem;
+  }
+
+  .stats-section .stat-label {
+    font-size: 0.78rem;
+    line-height: 1.35;
+  }
+
+  .stats-section .stat-number {
+    font-size: 1.65rem;
+  }
 }
 
 /* ===== Carousel (Gallery, Team, YouTube) – desktop: 5 visible (3 for YouTube), center enlarged ===== */
@@ -984,6 +1109,11 @@ body.search-open .search-bar {
 .section-cta {
   margin-top: 2rem;
   text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
 }
 
 /* ===== Video Grid ===== */
@@ -1466,6 +1596,39 @@ body.search-open .search-bar {
   fill: currentColor;
 }
 
+.whatsapp-float {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  z-index: 120;
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+}
+
+.whatsapp-float:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+}
+
+.whatsapp-float:focus-visible {
+  outline: 2px solid #128c7e;
+  outline-offset: 3px;
+}
+
+.whatsapp-float svg {
+  width: 30px;
+  height: 30px;
+  fill: currentColor;
+}
+
 .footer-bottom {
   padding-top: 1.5rem;
   border-top: 1px solid var(--color-border);
@@ -1703,6 +1866,13 @@ body.search-open .search-bar {
 
   .footer-social {
     justify-content: center;
+  }
+
+  .whatsapp-float {
+    left: 14px;
+    bottom: 14px;
+    width: 52px;
+    height: 52px;
   }
 }
 
