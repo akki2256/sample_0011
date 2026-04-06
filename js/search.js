@@ -6,12 +6,12 @@ var SEARCH_INDEX = [
   {
     url: 'index.html',
     title: 'Home',
-    text: 'Utsaah Foundation creating impact together cancer patients families Mumbai non-profit Tata Memorial Hospital financial assistance guidance resources treatment food accommodation medicines blood donors emotional support counseling cancer survivors recovery'
+    text: 'Utsaah Foundation creating impact together Bombay Public Trusts Act 1950 2015 accommodation blood platelet diagnostic financial assistance counselling mission awareness caregivers impact beneficiaries'
   },
   {
     url: 'who-we-are.html',
     title: 'Who We Are',
-    text: 'Utsaah Foundation non-profit Mumbai cancer patients families support Tata Memorial Hospital financial assistance guidance resources treatment food accommodation medicines blood donors emotional support counseling survivors recovery mission vision values'
+    text: 'Utsaah Foundation About Us Bombay Public Trusts Act 1950 non-profit mission awareness financial support caregivers empathy hope Tata Memorial Varanasi CSR vision values services accommodation diagnostic counselling'
   },
   {
     url: 'what-we-do.html',

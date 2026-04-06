@@ -1,10 +1,10 @@
 /**
  * Contact Form Handler
- * Submits to FormSubmit.co (free, unlimited submissions) → emails to airteldth1702@gmail.com
+ * Submits to FormSubmit.co (free, unlimited submissions) → emails to contact@utsaahfoundation.org
  * First time: FormSubmit sends a confirmation email to that address; click the link once to activate.
  */
 
-var CONTACT_EMAIL = 'airteldth1702@gmail.com';
+var CONTACT_EMAIL = 'contact@utsaahfoundation.org';
 var FORMSUBMIT_AJAX_URL = 'https://formsubmit.co/ajax/' + CONTACT_EMAIL;
 
 document.addEventListener('DOMContentLoaded', function () {
