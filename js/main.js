@@ -148,12 +148,14 @@ function initMobileNav() {
 function initSubmenu() {
   var nav = document.querySelector('.nav-links');
   if (!nav) return;
+  var mqMobile = window.matchMedia('(max-width: 768px)');
 
   nav.querySelectorAll('.nav-item-has-submenu').forEach(function (submenuParent) {
     var btn = submenuParent.querySelector('.nav-link-button');
     if (!btn) return;
 
     btn.addEventListener('click', function (e) {
+      if (!mqMobile.matches) return;
       e.stopPropagation();
       var isOpen = submenuParent.classList.toggle('submenu-open');
       btn.setAttribute('aria-expanded', isOpen);
@@ -168,6 +170,7 @@ function initSubmenu() {
   });
 
   document.addEventListener('click', function (e) {
+    if (!mqMobile.matches) return;
     if (!e.target.closest('.nav-item-has-submenu')) {
       nav.querySelectorAll('.nav-item-has-submenu').forEach(function (submenuParent) {
         submenuParent.classList.remove('submenu-open');

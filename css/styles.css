@@ -7,7 +7,7 @@
   --color-primary-hover: #d9980f;
   --color-accent: #f97316;
   --color-text: #1f2933;
-  --color-text-muted: #6b7280;
+  --color-text-muted: #3f4a5a;
   --color-border: #e5e7eb;
   --font-sans: 'DM Sans', system-ui, sans-serif;
   --font-display: 'Playfair Display', Georgia, serif;
@@ -186,7 +186,7 @@ img {
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  margin-top: 0.5rem;
+  margin-top: 0;
   min-width: 180px;
   list-style: none;
   background: var(--color-surface);
@@ -414,6 +414,39 @@ body.search-open .search-bar {
   .nav-link,
   .nav-link-button {
     white-space: nowrap;
+  }
+
+  .nav-item-has-submenu:hover .nav-submenu,
+  .nav-item-has-submenu:focus-within .nav-submenu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  /* Hover bridge: prevents submenu from closing while moving cursor downward */
+  .nav-item-has-submenu::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    height: 10px;
+  }
+
+  .nav-item-has-submenu:hover .nav-caret,
+  .nav-item-has-submenu:focus-within .nav-caret {
+    transform: rotate(180deg);
+  }
+
+  /* When one menu is hovered, close all non-hovered dropdowns */
+  .nav-links:has(.nav-item-has-submenu:hover) .nav-item-has-submenu:not(:hover) .nav-submenu {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .nav-links:has(.nav-item-has-submenu:hover) .nav-item-has-submenu:not(:hover) .nav-caret {
+    transform: rotate(0deg);
   }
 
   .nav-right {
@@ -755,6 +788,28 @@ body.search-open .search-bar {
 
 .about-inline-list li {
   margin-bottom: 0.35rem;
+}
+
+.scheme-links-list a {
+  color: var(--color-primary-hover);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  transition: color var(--transition), text-decoration-thickness var(--transition);
+}
+
+.scheme-links-list a:hover,
+.scheme-links-list a:focus-visible {
+  color: var(--color-primary);
+  text-decoration-thickness: 2px;
+}
+
+.scheme-links-list a[target="_blank"]::after {
+  content: " \2197";
+  font-size: 0.88em;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-decoration: none;
 }
 
 .about-card-list {
