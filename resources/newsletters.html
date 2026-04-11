@@ -11,22 +11,24 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body data-nav-section="resources">
     <div id="header-placeholder"></div>
 
     <main>
-        <section class="page-hero">
-            <div class="container">
-                <h1>Newsletters</h1>
-                <p>Updates, stories, and news from Utsaah Foundation. Open any issue to read the full letter.</p>
-            </div>
-        </section>
+        <section class="page-main">
+            <header class="page-main-intro">
+                <div class="container">
+                    <h1>Newsletters</h1>
+                    <p>Updates, stories, and news from Utsaah Foundation. Open any issue to read the full letter.</p>
+                </div>
+            </header>
 
-        <section class="section newsletter-archive-section" aria-labelledby="newsletter-archive-heading">
-            <div class="container">
-                <h2 id="newsletter-archive-heading" class="visually-hidden">Newsletter archive</h2>
-                <div id="newsletter-archive-list" class="newsletter-archive-list"></div>
-                <nav id="newsletter-archive-pager" class="newsletter-archive-pager" aria-label="Newsletter list pages"></nav>
+            <div class="page-main-body newsletter-archive-section" role="region" aria-labelledby="newsletter-archive-heading">
+                <div class="container">
+                    <h2 id="newsletter-archive-heading" class="visually-hidden">Newsletter archive</h2>
+                    <div id="newsletter-archive-list" class="newsletter-archive-list"></div>
+                    <nav id="newsletter-archive-pager" class="newsletter-archive-pager" aria-label="Newsletter list pages"></nav>
+                </div>
             </div>
         </section>
     </main>
@@ -34,8 +36,8 @@
     <div id="footer-placeholder"></div>
 
     <script src="js/include.js"></script>
+    <script src="js/main.js"></script>
     <script src="js/newsletters-data.js"></script>
     <script src="js/newsletters-archive.js"></script>
-    <script src="js/main.js"></script>
 </body>
 </html>
