@@ -1207,10 +1207,11 @@ body.search-open .search-bar {
   align-items: stretch;
 }
 
-/* Team / Mentors / Supporters pages: 4 columns × 3 rows (12 placeholders); index carousel unchanged */
+/* Team / Mentors / Supporters / Collaborators pages: 4 columns × 3 rows (12 placeholders); index carousel unchanged */
 .team-page .media-row.team-grid-4x3,
 .mentors-page .media-row.team-grid-4x3,
-.supporters-page .media-row.team-grid-4x3 {
+.supporters-page .media-row.team-grid-4x3,
+.collaborators-sponsors-page .media-row.team-grid-4x3 {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   max-width: 1000px;
   margin-left: auto;
@@ -1220,7 +1221,8 @@ body.search-open .search-bar {
 @media (max-width: 900px) {
   .team-page .media-row.team-grid-4x3,
   .mentors-page .media-row.team-grid-4x3,
-  .supporters-page .media-row.team-grid-4x3 {
+  .supporters-page .media-row.team-grid-4x3,
+  .collaborators-sponsors-page .media-row.team-grid-4x3 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -1228,7 +1230,8 @@ body.search-open .search-bar {
 @media (max-width: 480px) {
   .team-page .media-row.team-grid-4x3,
   .mentors-page .media-row.team-grid-4x3,
-  .supporters-page .media-row.team-grid-4x3 {
+  .supporters-page .media-row.team-grid-4x3,
+  .collaborators-sponsors-page .media-row.team-grid-4x3 {
     grid-template-columns: 1fr;
   }
 }
@@ -1263,6 +1266,62 @@ body.search-open .search-bar {
   font-size: 1rem;
 }
 
+/* Collaborators / sponsors: whole card is a link; logo area fits wide marks */
+.sponsor-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.sponsor-card__link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  padding: 1.25rem;
+  text-decoration: none;
+  color: inherit;
+  border-radius: inherit;
+  transition: background-color var(--transition), border-color var(--transition);
+}
+
+.sponsor-card__link:hover,
+.sponsor-card__link:focus-visible {
+  background: var(--color-bg-alt);
+  outline: none;
+}
+
+.sponsor-card__link:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-primary);
+}
+
+.sponsor-card__logo {
+  width: 100%;
+  min-height: 150px;
+  margin-bottom: 0.75rem;
+  border-radius: var(--radius);
+  background: #faf8f3;
+  border: 1px dashed var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+  box-sizing: border-box;
+}
+
+.sponsor-card__logo img {
+  max-width: 100%;
+  max-height: 120px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.sponsor-card .sponsor-card__link h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
 .section-cta {
   margin-top: 2rem;
   text-align: center;
@@ -1271,6 +1330,146 @@ body.search-open .search-bar {
   justify-content: center;
   align-items: center;
   gap: 1rem;
+}
+
+/* ===== Patient Navigation: 7 rows, 50/50 zig-zag; heading centred in its half ===== */
+.patient-navigation-help-heading,
+.patient-advocacy-efforts-heading {
+  margin-bottom: 2.75rem;
+}
+
+.patient-navigation-help-heading h2,
+.patient-advocacy-efforts-heading h2 {
+  margin-bottom: 0;
+}
+
+.patient-nav-zigzag {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 1000px;
+}
+
+/* DOM always: .content (h3) then .media — reorder with grid order for zig-zag */
+.patient-nav-zigzag__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem 2.5rem;
+  align-items: stretch;
+  margin-bottom: 2.75rem;
+}
+
+.patient-nav-zigzag__row:last-child {
+  margin-bottom: 0;
+}
+
+/* Odd rows (1,3,5,7): placeholder left, heading right */
+.patient-nav-zigzag__row:nth-child(odd) .patient-nav-zigzag__media {
+  order: 1;
+}
+
+.patient-nav-zigzag__row:nth-child(odd) .patient-nav-zigzag__content {
+  order: 2;
+}
+
+/* Even rows (2,4,6): heading left, placeholder right */
+.patient-nav-zigzag__row:nth-child(even) .patient-nav-zigzag__content {
+  order: 1;
+}
+
+.patient-nav-zigzag__row:nth-child(even) .patient-nav-zigzag__media {
+  order: 2;
+}
+
+.patient-nav-zigzag__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0.5rem;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.patient-nav-zigzag__content h3 {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  margin: 0;
+  max-width: 16rem;
+  color: var(--color-text);
+}
+
+.patient-nav-zigzag__media {
+  display: flex;
+  align-items: center;
+  min-height: 200px;
+  min-width: 0;
+  padding: 1.5rem 1.35rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: linear-gradient(135deg, #dbeafe, #93c5fd);
+  box-sizing: border-box;
+}
+
+.patient-nav-zigzag__media .patient-nav-zigzag__copy {
+  width: 100%;
+  text-align: left;
+}
+
+.patient-nav-zigzag__media .patient-nav-zigzag__copy a {
+  display: inline-block;
+  margin-top: 0.45rem;
+}
+
+.patient-nav-zigzag__row:nth-child(even) .patient-nav-zigzag__media {
+  background: linear-gradient(135deg, #fef3c7, #fcd34d);
+}
+
+.patient-nav-zigzag__copy {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.patient-nav-zigzag__copy a {
+  font-weight: 600;
+  color: var(--color-primary-hover);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  transition: color var(--transition), text-decoration-thickness var(--transition);
+}
+
+.patient-nav-zigzag__copy a:hover,
+.patient-nav-zigzag__copy a:focus-visible {
+  color: var(--color-primary);
+  text-decoration-thickness: 2px;
+}
+
+@media (max-width: 768px) {
+  .patient-nav-zigzag__row {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin-bottom: 2.25rem;
+  }
+
+  /* Keep zig-zag reading order: odd = placeholder then heading; even = heading then placeholder */
+  .patient-nav-zigzag__row:nth-child(odd) .patient-nav-zigzag__media {
+    order: -1;
+  }
+
+  .patient-nav-zigzag__row:nth-child(even) .patient-nav-zigzag__content {
+    order: -1;
+  }
+
+  .patient-nav-zigzag__media {
+    min-height: 0;
+  }
+
+  .patient-nav-zigzag__media .patient-nav-zigzag__copy {
+    text-align: center;
+  }
 }
 
 /* ===== Video Grid ===== */
