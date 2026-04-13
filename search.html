@@ -14,19 +14,22 @@
     <div id="header-placeholder"></div>
 
     <main>
-        <section class="page-hero">
-            <div class="container">
+        <section class="page-main">
+            <header class="page-main-intro">
+                <div class="container">
                 <h1>Search</h1>
                 <p>Find pages and content across the Utsaah Foundation website.</p>
-            </div>
-        </section>
-        <section class="section">
-            <div class="container">
+                </div>
+            </header>
+
+            <div class="page-main-body">
+                <div class="container">
                 <form class="search-page-form" role="search" action="search.html" method="get">
                     <input type="search" name="q" id="search-page-input" class="search-input" placeholder="Enter keywords (e.g. cancer, donate, contact)..." value="" aria-label="Search">
                     <button type="submit" class="btn btn-primary">Search</button>
                 </form>
                 <div id="search-results" class="search-results"></div>
+                </div>
             </div>
         </section>
     </main>
@@ -34,8 +37,8 @@
     <div id="footer-placeholder"></div>
 
     <script src="js/include.js"></script>
-    <script src="js/search.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/search.js"></script>
     <script>
       (function () {
         var params = new URLSearchParams(window.location.search);

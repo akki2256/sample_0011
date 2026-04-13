@@ -2,8 +2,161 @@
  * Main JavaScript - Navigation and shared functionality
  */
 
-document.addEventListener('DOMContentLoaded', runInits);
-document.addEventListener('headerFooterLoaded', runInits);
+/** Shared top banners for nav sections (Who we are, What we do, etc.). Edit text/image paths here only. */
+var SECTION_BANNER_CONFIG = {
+  'who-we-are': {
+    parentLabel: 'Who we are',
+    blurb: 'Intro copy for this section will be updated soon. It will briefly describe who we are and how we support patients and families.',
+    image: 'images/banner/section-who-we-are.jpg'
+  },
+  'what-we-do': {
+    parentLabel: 'What we do',
+    blurb: 'Intro copy for this section will be updated soon. It will outline our programmes and how we help during treatment.',
+    image: 'images/banner/section-what-we-do.jpg'
+  },
+  'who-we-work-with': {
+    parentLabel: 'Who we work with',
+    blurb: 'Intro copy for this section will be updated soon. It will highlight our partners and communities we serve.',
+    image: 'images/banner/section-who-we-work-with.jpg'
+  },
+  resources: {
+    parentLabel: 'Resources',
+    blurb: 'Intro copy for this section will be updated soon. It will point visitors to guides, stories, and useful materials.',
+    image: 'images/banner/section-resources.jpg'
+  }
+};
+
+function resolveNavSection() {
+  var rawPath = (window.location.pathname || '').replace(/\\/g, '/');
+  var path;
+  try {
+    path = decodeURIComponent(rawPath).toLowerCase();
+  } catch (e) {
+    path = rawPath.toLowerCase();
+  }
+  if (!path && window.location.href) {
+    try {
+      path = new URL(window.location.href).pathname.replace(/\\/g, '/').toLowerCase();
+    } catch (e2) {
+      path = '';
+    }
+  }
+  var parts = path.split('/').filter(function (s) {
+    return s.length > 0;
+  });
+  var file = parts.length ? parts[parts.length - 1] : '';
+  var base = file.replace(/\.html?$/i, '');
+
+  if (path === '/' || path === '') {
+    return null;
+  }
+  if (base === 'index' || file === 'index.html') {
+    return null;
+  }
+
+  /* team.html or pretty URL /team — same section as Who we are */
+  if (base === 'team' || base === 'who-we-are' || parts.indexOf('who-we-are') !== -1) {
+    return 'who-we-are';
+  }
+
+  if (base === 'what-we-do' || parts.indexOf('what-we-do') !== -1) {
+    return 'what-we-do';
+  }
+
+  if (base === 'who-we-work-with' || parts.indexOf('who-we-work-with') !== -1) {
+    return 'who-we-work-with';
+  }
+
+  if (parts.indexOf('resources') !== -1 || base === 'gallery') {
+    return 'resources';
+  }
+
+  return null;
+}
+
+/**
+ * Preferred: body[data-nav-section] must match a key in SECTION_BANNER_CONFIG (who-we-are, what-we-do, …).
+ * Falls back to URL heuristics if the attribute is missing (e.g. older copies of a page).
+ */
+function getNavSectionKey() {
+  var body = document.body;
+  var raw = body && body.getAttribute('data-nav-section');
+  if (raw != null && String(raw).trim() !== '') {
+    var k = String(raw).trim();
+    if (SECTION_BANNER_CONFIG[k]) {
+      return k;
+    }
+  }
+  return resolveNavSection();
+}
+
+function initSectionBanner() {
+  var main = document.querySelector('main');
+  if (!main || main._utsSectionBannerDone) return;
+  var key = getNavSectionKey();
+  if (!key) return;
+  var cfg = SECTION_BANNER_CONFIG[key];
+  if (!cfg) return;
+  main._utsSectionBannerDone = true;
+
+  var section = document.createElement('section');
+  section.className = 'hero hero-section-banner';
+  section.setAttribute('aria-label', cfg.parentLabel + ' — section introduction');
+
+  var media = document.createElement('div');
+  media.className = 'hero-media';
+
+  var slide = document.createElement('div');
+  slide.className = 'hero-slide hero-slide-active';
+  var imgPath = cfg.image || '';
+  if (imgPath.indexOf("'") !== -1) {
+    imgPath = imgPath.replace(/'/g, '');
+  }
+  slide.style.backgroundImage = imgPath ? "url('" + imgPath + "')" : '';
+
+  var overlay = document.createElement('div');
+  overlay.className = 'hero-overlay';
+  media.appendChild(slide);
+  media.appendChild(overlay);
+
+  var content = document.createElement('div');
+  content.className = 'hero-content container';
+
+  var parentLabel = document.createElement('p');
+  parentLabel.className = 'section-banner-parent';
+  parentLabel.textContent = cfg.parentLabel;
+
+  var blurb = document.createElement('p');
+  blurb.className = 'hero-subtitle section-banner-blurb';
+  var blurbStrong = document.createElement('b');
+  blurbStrong.textContent = cfg.blurb;
+  blurb.appendChild(blurbStrong);
+
+  content.appendChild(parentLabel);
+  content.appendChild(blurb);
+
+  section.appendChild(media);
+  section.appendChild(content);
+
+  main.insertBefore(section, main.firstChild);
+}
+
+/* DOM ready: nav chrome that does not depend on fetched header/footer */
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', runInits);
+} else {
+  runInits();
+}
+
+/*
+ * Same pipeline as include.js: after header.html + footer.html are injected, add the section
+ * banner (if this page declares data-nav-section) and refresh nav state. Keeps header, footer,
+ * and banner on one consistent “layout loaded” step.
+ */
+document.addEventListener('headerFooterLoaded', function onLayoutFragmentsLoaded() {
+  initSectionBanner();
+  runInits();
+});
 
 function runInits() {
   initNavActiveState();
@@ -147,7 +300,8 @@ function initMobileNav() {
 
 function initSubmenu() {
   var nav = document.querySelector('.nav-links');
-  if (!nav) return;
+  if (!nav || nav._utsSubmenuBound) return;
+  nav._utsSubmenuBound = true;
   var mqMobile = window.matchMedia('(max-width: 768px)');
 
   nav.querySelectorAll('.nav-item-has-submenu').forEach(function (submenuParent) {
@@ -155,7 +309,18 @@ function initSubmenu() {
     if (!btn) return;
 
     btn.addEventListener('click', function (e) {
-      if (!mqMobile.matches) return;
+      if (!mqMobile.matches) {
+        var firstLink = submenuParent.querySelector('.nav-submenu a.nav-submenu-link');
+        var href = firstLink && firstLink.getAttribute('href');
+        if (href) {
+          if (e.metaKey || e.ctrlKey) {
+            window.open(href, '_blank', 'noopener,noreferrer');
+          } else {
+            window.location.href = href;
+          }
+        }
+        return;
+      }
       e.stopPropagation();
       var isOpen = submenuParent.classList.toggle('submenu-open');
       btn.setAttribute('aria-expanded', isOpen);
@@ -265,8 +430,10 @@ function initSearchPageForm() {
 
 function initHeroSlider() {
   const media = document.querySelector('.hero-media');
+  if (!media || media._utsHeroSliderBound) return;
   const slides = media ? Array.from(media.querySelectorAll('.hero-slide')) : [];
   if (slides.length <= 1) return;
+  media._utsHeroSliderBound = true;
 
   const prevBtn = media.querySelector('.hero-prev');
   const nextBtn = media.querySelector('.hero-next');
@@ -333,6 +500,8 @@ function initCarousels() {
   const wraps = document.querySelectorAll('.carousel-wrap[data-carousel]');
 
   wraps.forEach(function (wrap) {
+    if (wrap._utsCarouselInit) return;
+    wrap._utsCarouselInit = true;
     const viewport = wrap.querySelector('.carousel-viewport');
     const track = wrap.querySelector('.carousel-track');
     const prevBtn = wrap.querySelector('.carousel-prev');
@@ -483,7 +652,8 @@ function initCarousels() {
 function initStatsCounter() {
   const section = document.querySelector('.stats-section');
   const numbers = section ? section.querySelectorAll('.stat-number') : null;
-  if (!section || !numbers || numbers.length === 0) return;
+  if (!section || section._utsStatsCounterInit || !numbers || numbers.length === 0) return;
+  section._utsStatsCounterInit = true;
 
   let hasRun = false;
 
@@ -526,6 +696,8 @@ function initStatsCounter() {
 function initVideoPlaceholders() {
   const cards = document.querySelectorAll('.video-card[data-video-id]');
   if (!cards.length) return;
+  if (document.body._utsVideoPlaceholdersBound) return;
+  document.body._utsVideoPlaceholdersBound = true;
 
   cards.forEach(function (card) {
     card.addEventListener('click', function () {
